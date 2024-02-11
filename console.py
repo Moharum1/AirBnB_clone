@@ -3,6 +3,7 @@
     A cmd application
 """
 import cmd
+import re
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -48,7 +49,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
-                model = eval(content[0])  # check if the name of the class exist
+                # check if the name of the class exist
+                model = eval(content[0])
                 if len(content) < 2:
                     print("** instance id missing **")
                 else:
@@ -82,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             except NameError:
                 print("** class doesn't exist **")
 
-    def do_all(self, line):  # TODO : the function always print the whole database not the specified class
+    def do_all(self, line):
         try:
             model = eval(line)
             items = []
@@ -103,7 +105,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
-                model = eval(content[0])  # check if the name of the class exist
+                # check if the name of the class exist
+                model = eval(content[0])
                 if itemCount < 2:
                     print("** instance id missing **")
                 else:
@@ -119,28 +122,44 @@ class HBNBCommand(cmd.Cmd):
                             else:
                                 model = model(**AvilableObj[instanceName])
                                 modelDict = model.__dict__.copy()
-                                
+
                                 if content[2] in modelDict:
                                     kind = type(modelDict[content[2]])
-                                    modelDict[content[2]] = kind(content[3].replace("\"",""))
+                                    value = content[3].replace("\"", "")
+                                    modelDict[content[2]] = kind(value)
                                 else:
-                                    modelDict[content[2]] = content[3].replace("\"","")
+                                    value = content[3].replace("\"", "")
+                                    modelDict[content[2]] = value
 
                                 model.__dict__.update(modelDict)
-                                storage.delete(instanceName)  # remove old obj from the DataBase
-                                storage.new(model)  # Add the updated Item to the Database
+                                # remove old obj from the DataBase
+                                storage.delete(instanceName)
+                                # Add the updated Item to the Database
+                                storage.new(model)
                                 storage.save()
                     else:
                         print("** no instance found **")
             except NameError:
                 print("** class doesn't exist **")
 
-    def default(self,line):
-        try:
-            eval(line)
-        except:
-            Place.all()
+    def default(self, line):
+        """
+            Will be used to handle the rest of the conditions
 
+                result is a List containing the following:#
+                    0 - the Class name
+                    1 - the method we want to use
+        """
+        try:
+            result = re.split(r'\.', line)
+            model = globals()[result[0]]
+
+            if (result[1] == "all()"):
+                model.all()
+            elif (result[1] == "count()"):
+                model.count(model)
+        except NameError:
+            print("The command doesn't exist")
 
     "-------------------------------"
     "Documentation"
@@ -162,10 +181,17 @@ class HBNBCommand(cmd.Cmd):
         print("syntax : show <class_name> <obj.id>")
         print("-- if exist print the string format of the obj")
 
-    def all(self):
+    def help_all(self):
         print("syntax : all <class_name> ")
         print("-- if exist print a list of string of all the class objects")
 
+    def help_destroy(self):
+        print("syntax : destroy <class_name> <object_id> ")
+        print("-- if exist remove the specified class object from database")
+
+    def help_update(self):
+        print("syntax : update <class_name> <object_id> <key> <value>")
+        print("-- if exist update the specified class object with the new key/Value")
 
 def parse(arg):
     return list(map(str, arg.split()))
