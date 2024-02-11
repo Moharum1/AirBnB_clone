@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """
-    A python State Module
+    A python review Module
 """
 from .base_model import BaseModel
+
+
 class Review(BaseModel):
     """
         Review Class for data Mangment
@@ -20,4 +22,3 @@ class Review(BaseModel):
         content["place_id"] = self.place_id
         content["user_id"] = self.user_id
         return content
-

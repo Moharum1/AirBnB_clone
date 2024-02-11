@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-    A python User Module
+    A python Place Module
 """
 from .base_model import BaseModel
+
+
 class Place(BaseModel):
     """
-        User Class for data Mangment
+        Place Class for data Mangment
     """
 
     def __init__(self, **kwargs):
@@ -35,4 +37,3 @@ class Place(BaseModel):
         content["latitude"] = self.latitude
         content["amenity_ids"] = self.amenity_ids
         return content
-

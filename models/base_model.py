@@ -9,6 +9,10 @@ from datetime import datetime
 
 
 class BaseModel():
+    """
+        Abstract class containing the main function needed to 
+            Store, delete, edit and show Data in the database 
+    """
 
     def __init__(self, **kwargs):
         """
@@ -50,14 +54,34 @@ class BaseModel():
         my_dict["updated_at"] = self.updated_at.isoformat()
         return my_dict
     
-    @classmethod
+    @staticmethod
     def all(self):
+        """
+            return The String representation of all object having the same name in Storage
+                as the caller class
+        """
         items = []
-        AvilableObj = storage.all()
-        for key, val in AvilableObj.items():
-            if self.__name__ in key:
-                items.append(self(**val).__str__())
+        AvailableObj = storage.all()
+        for key, val in AvailableObj.items():
+            if self.__class__.__name__ in key:
+                # Create an instance of the current class using the values from storage
+                instance = self.__class__(**val).__str__()
+                # Append the string representation of the instance to the list
+                items.append(instance)
         print(items)
+
+    @staticmethod
+    def count(self):
+        """
+            return the number of Objects inside the Storage which has the same type as 
+                Caller Object
+        """
+        count = 0
+        AvailableObj = storage.all()
+        for key, _ in AvailableObj.items():
+            if self.__class__.__name__ in key:
+                count += 1
+        print(count)
 
     def __str__(self):
         """

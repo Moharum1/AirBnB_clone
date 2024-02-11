@@ -3,6 +3,8 @@
     A python User Module
 """
 from .base_model import BaseModel
+
+
 class User(BaseModel):
     """
         User Class for data Mangment
@@ -22,4 +24,3 @@ class User(BaseModel):
         content["first_name"] = self.first_name
         content["last_name"] = self.last_name
         return content
-

@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-    A python State Module
+    A python City Module
 """
 from .base_model import BaseModel
+
+
 class City(BaseModel):
     """
-        State Class for data Mangment
+        City Class for data Mangment
     """
 
     def __init__(self, **kwargs):
@@ -18,4 +20,3 @@ class City(BaseModel):
         content["name"] = self.name
         content["state_id"] = self.state_id
         return content
-

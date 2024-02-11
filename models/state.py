@@ -3,6 +3,8 @@
     A python State Module
 """
 from .base_model import BaseModel
+
+
 class State(BaseModel):
     """
         State Class for data Mangment
@@ -16,4 +18,3 @@ class State(BaseModel):
         content = super().to_dict()
         content["name"] = self.name
         return content
-

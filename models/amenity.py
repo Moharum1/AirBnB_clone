@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """
-    A python State Module
+    A python Amenity Module
 """
 from .base_model import BaseModel
+
+
 class Amenity(BaseModel):
     """
-        State Class for data Mangment
+        Amenity Class for data Mangment
     """
 
     def __init__(self, **kwargs):
@@ -16,4 +18,3 @@ class Amenity(BaseModel):
         content = super().to_dict()
         content["name"] = self.name
         return content
-
