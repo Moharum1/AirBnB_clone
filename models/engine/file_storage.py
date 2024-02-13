@@ -64,6 +64,8 @@ class FileStorage():
             Args:
                 id (str) : unique id of the obj in the format <class_name>.<obj.id>
         """
-        if id in FileStorage.__objects:
-            self.__objects.pop(id)
-            self.save()
+        for key,value in FileStorage.__objects.items():
+            if key == id:
+                del FileStorage.__objects[key]
+                self.save()
+                break

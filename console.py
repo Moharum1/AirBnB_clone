@@ -36,9 +36,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
-                newIns = eval(line)
-                newIns = newIns()
-                storage.new(newIns)
+                newIns = eval(line)()
+                newIns.save()
                 print(newIns.id)
             except NameError:
                 print("** class doesn't exist **")
@@ -86,12 +85,10 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         try:
-            model = eval(line)
             items = []
-            AvilableObj = storage.all()
-            for key, val in AvilableObj.items():
-                if model.__name__ in key:
-                    items.append(model(**val).__str__())
+            for key, val in storage.all().items():
+                if line in key:
+                    items.append(val.__str__())
             print(items)
 
         except NameError:
@@ -197,5 +194,5 @@ def parse(arg):
     return list(map(str, arg.split()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
