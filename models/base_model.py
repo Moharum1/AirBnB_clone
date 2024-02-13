@@ -35,9 +35,7 @@ class BaseModel():
             self.updated_at = datetime.fromisoformat(self.updated_at)
 
     def save(self):
-        """
-            Updates the content of the Storage file
-        """
+        """ Updates the content of the Storage file"""
         self.updated_at = datetime.utcnow()
         models.storage.save()
 
