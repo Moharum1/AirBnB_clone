@@ -1,7 +1,3 @@
-#!/usr/bin/python3
-"""
-    Unit test for AirBnB Consol
-"""
 #!/usr/bin/env python3
 """ unittest for base model """
 

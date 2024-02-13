@@ -90,8 +90,6 @@ class BaseModel():
         else:
             print("** no instance found **")
 
-                
-
     @classmethod
     def destroy(cls, id):
         """
@@ -104,8 +102,6 @@ class BaseModel():
             models.storage.delete(classKey)
         else:
             print("** no instance found **")
-
-
 
     def __str__(self):
         """

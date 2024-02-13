@@ -12,17 +12,22 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class FileStorage():
+    """
+        A class for handling data storing and retriving
+    """
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
         """
-            a function that return a dict containing all the avilable BaseModel objects
+        a function that return a dict containing
+        all the avilable BaseModel objects
         """
         return FileStorage.__objects
-    
+
     def new(self, obj):
         """
         Add a new object into the file Storage
@@ -56,15 +61,15 @@ class FileStorage():
                 FileStorage.__objects = {
                     key: eval(obj["__class__"])(**obj)
                     for key, obj in deserialize.items()}
-    
+
     def delete(self, id):
         """
             remove an object from the Storage
 
             Args:
-                id (str) : unique id of the obj in the format <class_name>.<obj.id>
+                id (str) : unique id in format <class_name>.<obj.id>
         """
-        for key,value in FileStorage.__objects.items():
+        for key, _ in FileStorage.__objects.items():
             if key == id:
                 del FileStorage.__objects[key]
                 self.save()
