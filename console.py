@@ -161,6 +161,12 @@ class HBNBCommand(cmd.Cmd):
                 model.all()
             elif (result[1] == "count()"):
                 model.count()
+            elif ("show" in result[1]):
+                id = re.match(r".*\.show\((.*)\)", line)[1]
+                model.show(id)
+            elif ("destroy" in result[1]):
+                id = re.match(r".*\.destroy\((.*)\)", line)[1]
+                model.destroy(id)
         except:
             print("The command doesn't exist")
 

@@ -77,6 +77,27 @@ class BaseModel():
                 count += 1
         print(count)
 
+    @classmethod
+    def show(cls, id):
+        """
+            show the content of the class
+        """
+        classKey = "{}.{}".format(cls.__name__, id)
+        for key, val in models.storage.all().items():
+            if key == classKey:
+                print(val.__str__())
+
+    @classmethod
+    def destroy(cls, id):
+        """
+            destroy the object from Storage
+        """
+        classKey = "{}.{}".format(cls.__name__, id)
+
+        if classKey in models.storage.all():
+            models.storage.delete(classKey)
+
+
     def __str__(self):
         """
         return a string containing :
