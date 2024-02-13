@@ -78,12 +78,13 @@ if result is None or result == "":
     
 model_id = result
 
-result = exec_command(my_console, "all")
+result = exec_command(my_console, "update")
 if result is None or result == "":
     print("FAIL: no output")
     
-if model_id not in result:
-    print("FAIL: New ID not in the output")
+search_str = "** class name missing **"
+if result != search_str:
+    print("FAIL: wrong message: \"{}\" instead of \"{}\"".format(result, search_str))
     
 print("OK", end="")
 

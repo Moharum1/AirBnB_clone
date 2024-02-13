@@ -85,11 +85,16 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         try:
-            eval(line)
             items = []
-            for key, val in storage.all().items():
-                if line in key:
+            if line:
+                eval(line)
+                for key, val in storage.all().items():
+                    if line in key:
+                        items.append(val.__str__())
+            else :
+                for key, val in storage.all().items():
                     items.append(val.__str__())
+
             print(items)
 
         except NameError:
