@@ -98,9 +98,13 @@ class BaseModel():
             destroy the object from Storage
         """
         classKey = "{}.{}".format(cls.__name__, id)
+        AvilableObj = models.storage.all()
 
-        if classKey in models.storage.all():
+        if classKey in AvilableObj:
             models.storage.delete(classKey)
+        else:
+            print("** no instance found **")
+
 
 
     def __str__(self):
