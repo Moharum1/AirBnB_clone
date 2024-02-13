@@ -9,18 +9,17 @@ class User(BaseModel):
     """
         User Class for data Mangment
     """
+    
+    email = ""
+    password = ""
+    first_name = ""
+    last_name = ""
 
-    def __init__(self, **kwargs):
-        self.email = ""
-        self.password = ""
-        self.first_name = ""
-        self.last_name = ""
-        super().__init__(**kwargs)
 
     def to_dict(self):
         content = super().to_dict()
-        content["email"] = self.email
-        content["password"] = self.password
-        content["first_name"] = self.first_name
-        content["last_name"] = self.last_name
+        content["email"] = User.email
+        content["password"] = User.password
+        content["first_name"] = User.first_name
+        content["last_name"] = User.last_name
         return content
