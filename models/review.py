@@ -17,7 +17,7 @@ class Review(BaseModel):
 
     def to_dict(self):
         content = super().to_dict()
-        content["name"] = Review.name
+        content["text"] = Review.text
         content["place_id"] = Review.place_id
         content["user_id"] = Review.user_id
         return content
