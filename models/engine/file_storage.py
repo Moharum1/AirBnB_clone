@@ -14,15 +14,14 @@ from models.review import Review
 
 class FileStorage():
 
-    def __init__(self):
-        self.__file_path = "file.json"
-        self.__objects = {}
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """
             a function that return a dict containing all the avilable BaseModel objects
         """
-        return self.__objects
+        return FileStorage.__objects
     
     def new(self, obj):
         """
@@ -33,14 +32,14 @@ class FileStorage():
             obj (BaseModel) : object you want to add to storage
         """
         key = "{}.{}".format(type(obj).__name__, obj.id)
-        self.__objects[key] = obj.to_dict()
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """
         Save the current avilable objects into a JSON file
         """
         serialized = {
-            key: val
+            key: val.to_dict()
             for key, val in self.__objects.items()
         }
         with open(self.__file_path, "w") as localStorage:
@@ -65,6 +64,6 @@ class FileStorage():
             Args:
                 id (str) : unique id of the obj in the format <class_name>.<obj.id>
         """
-        if id in self.__objects:
+        if id in FileStorage.__objects:
             self.__objects.pop(id)
             self.save()
