@@ -83,9 +83,14 @@ class BaseModel():
             show the content of the class
         """
         classKey = "{}.{}".format(cls.__name__, id)
-        for key, val in models.storage.all().items():
-            if key == classKey:
-                print(val.__str__())
+        AvilableObj = models.storage.all()
+
+        if classKey in AvilableObj:
+            print(AvilableObj[classKey].__str__())
+        else:
+            print("** no instance found **")
+
+                
 
     @classmethod
     def destroy(cls, id):

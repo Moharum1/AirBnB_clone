@@ -91,7 +91,7 @@ class HBNBCommand(cmd.Cmd):
                 for key, val in storage.all().items():
                     if line in key:
                         items.append(val.__str__())
-            else :
+            else:
                 for key, val in storage.all().items():
                     items.append(val.__str__())
 
@@ -167,7 +167,7 @@ class HBNBCommand(cmd.Cmd):
             elif ("destroy" in result[1]):
                 id = re.match(r".*\.destroy\((.*)\)", line)[1]
                 model.destroy(id)
-        except:
+        except Exception as e:
             print("The command doesn't exist")
 
     "-------------------------------"
@@ -200,7 +200,8 @@ class HBNBCommand(cmd.Cmd):
 
     def help_update(self):
         print("syntax : update <class_name> <object_id> <key> <value>")
-        print("-- if exist update the specified class object with the new key/Value")
+        print("-- if exist update the class object with the new key/Value")
+
 
 def parse(arg):
     return list(map(str, arg.split()))
