@@ -10,11 +10,9 @@ class Amenity(BaseModel):
         Amenity Class for data Mangment
     """
 
-    def __init__(self, **kwargs):
-        self.name = ""
-        super().__init__(**kwargs)
+    name = ''
 
     def to_dict(self):
         content = super().to_dict()
-        content["name"] = self.name
+        content["name"] = Amenity.name
         return content

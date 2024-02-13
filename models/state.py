@@ -10,11 +10,10 @@ class State(BaseModel):
         State Class for data Mangment
     """
 
-    def __init__(self, **kwargs):
-        self.name = ""
-        super().__init__(**kwargs)
+    # Atrributes
+    name: str = ''
 
     def to_dict(self):
         content = super().to_dict()
-        content["name"] = self.name
+        content["name"] = State.name
         return content
