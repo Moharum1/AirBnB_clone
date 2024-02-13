@@ -13,7 +13,7 @@ class BaseModel():
             Store, delete, edit and show Data in the database
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         A function called when initializing a class object
             Create an object with the following public attributes:
