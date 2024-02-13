@@ -156,12 +156,11 @@ class HBNBCommand(cmd.Cmd):
         try:
             result = re.split(r'\.', line)
             model = globals()[result[0]]
-            print(result)
 
             if (result[1] == "all()"):
                 model.all()
             elif (result[1] == "count()"):
-                model.count(model)
+                model.count()
         except:
             print("The command doesn't exist")
 

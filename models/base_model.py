@@ -64,8 +64,8 @@ class BaseModel():
                 items.append(str(val))
         print(items)
 
-    @staticmethod
-    def count(self):
+    @classmethod
+    def count(cls):
         """
             return the number of Objects inside
             the Storage which has the same type as Caller Object
@@ -73,7 +73,7 @@ class BaseModel():
         count = 0
         AvailableObj = models.storage.all()
         for key, _ in AvailableObj.items():
-            if self.__class__.__name__ in key:
+            if cls.__name__ in key:
                 count += 1
         print(count)
 
