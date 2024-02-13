@@ -57,7 +57,7 @@ class HBNBCommand(cmd.Cmd):
                     AvilableObj = storage.all()
 
                     if instanceName in AvilableObj:
-                        print(model(**AvilableObj[str(instanceName)]))
+                        print(AvilableObj[instanceName].__str__())
                     else:
                         print("** no instance found **")
             except NameError:
@@ -85,6 +85,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, line):
         try:
+            eval(line)
             items = []
             for key, val in storage.all().items():
                 if line in key:
