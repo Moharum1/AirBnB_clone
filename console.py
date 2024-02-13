@@ -158,7 +158,7 @@ class HBNBCommand(cmd.Cmd):
                 model.all()
             elif (result[1] == "count()"):
                 model.count(model)
-        except NameError:
+        except:
             print("The command doesn't exist")
 
     "-------------------------------"

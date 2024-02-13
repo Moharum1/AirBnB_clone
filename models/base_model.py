@@ -1,17 +1,16 @@
 #!/usr/bin/python3
 """
-    A python Base model class 
+    A python Base model class
 """
 import uuid
-import json
-from models import storage
+import models
 from datetime import datetime
 
 
 class BaseModel():
     """
-        Abstract class containing the main function needed to 
-            Store, delete, edit and show Data in the database 
+        Abstract class containing the main function needed to
+            Store, delete, edit and show Data in the database
     """
 
     def __init__(self, **kwargs):
@@ -24,9 +23,9 @@ class BaseModel():
         """
         if not kwargs:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
         else:
             for key, value in kwargs.items():
@@ -39,45 +38,45 @@ class BaseModel():
         """
             Updates the content of the Storage file
         """
-        self.updated_at = datetime.now()
-        storage.save()
+        #self.updated_at = datetime.utcnow()
+        models.storage.save()
 
     def to_dict(self):
         """
         A function that return a dict with:
             - The object public members
-            - The name of the class 
+            - The name of the class
         """
         my_dict = self.__dict__.copy()
         my_dict["__class__"] = type(self).__name__
         my_dict["created_at"] = self.created_at.isoformat()
         my_dict["updated_at"] = self.updated_at.isoformat()
         return my_dict
-    
+
     @staticmethod
     def all(self):
         """
-            return The String representation of all object having the same name in Storage
-                as the caller class
+            return The String representation of all object
+            having the same name in Storage as the caller class
         """
         items = []
-        AvailableObj = storage.all()
+        AvailableObj = models.storage.all()
         for key, val in AvailableObj.items():
             if self.__class__.__name__ in key:
-                # Create an instance of the current class using the values from storage
+                # Create an instance of the current class
                 instance = self.__class__(**val).__str__()
-                # Append the string representation of the instance to the list
+                # Append list with string representation of class
                 items.append(instance)
         print(items)
 
     @staticmethod
     def count(self):
         """
-            return the number of Objects inside the Storage which has the same type as 
-                Caller Object
+            return the number of Objects inside
+            the Storage which has the same type as Caller Object
         """
         count = 0
-        AvailableObj = storage.all()
+        AvailableObj = models.storage.all()
         for key, _ in AvailableObj.items():
             if self.__class__.__name__ in key:
                 count += 1
@@ -90,4 +89,5 @@ class BaseModel():
             - The id of the object
             - A dict for the object public members
         """
-        return "[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+            type(self).__name__, self.id, self.__dict__)

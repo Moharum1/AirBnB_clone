@@ -4,6 +4,13 @@
 """
 import json
 import os
+from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class FileStorage():
 
@@ -32,8 +39,12 @@ class FileStorage():
         """
         Save the current avilable objects into a JSON file
         """
+        serialized = {
+            key: val
+            for key, val in self.__objects.items()
+        }
         with open(self.__file_path, "w") as localStorage:
-            json.dump(self.__objects, localStorage)
+            json.dump(serialized, localStorage)
 
     def reload(self):
         """
@@ -42,7 +53,10 @@ class FileStorage():
         """
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, "r") as localStorage:
-                self.__objects = json.load(localStorage)
+                deserialize = json.load(localStorage)
+                self.__objects = {
+                    key: eval(obj["__class__"])(**obj)
+                    for key, obj in deserialize.items()}
     
     def delete(self, id):
         """
