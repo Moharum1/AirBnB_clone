@@ -40,7 +40,7 @@ class FileStorage():
         """
         serialized = {
             key: val.to_dict()
-            for key, val in self.__objects.items()
+            for key, val in FileStorage.__objects.items()
         }
         with open(self.__file_path, "w") as localStorage:
             json.dump(serialized, localStorage)
@@ -50,10 +50,10 @@ class FileStorage():
         Checks if there is a json file in the path
             if exist extract all the objects from it
         """
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, "r") as localStorage:
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r") as localStorage:
                 deserialize = json.load(localStorage)
-                self.__objects = {
+                FileStorage.__objects = {
                     key: eval(obj["__class__"])(**obj)
                     for key, obj in deserialize.items()}
     
