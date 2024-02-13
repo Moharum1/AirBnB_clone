@@ -51,8 +51,8 @@ class BaseModel():
         my_dict["updated_at"] = self.updated_at.isoformat()
         return my_dict
 
-    @staticmethod
-    def all(self):
+    @classmethod
+    def all(cls):
         """
             return The String representation of all object
             having the same name in Storage as the caller class
@@ -60,11 +60,8 @@ class BaseModel():
         items = []
         AvailableObj = models.storage.all()
         for key, val in AvailableObj.items():
-            if self.__class__.__name__ in key:
-                # Create an instance of the current class
-                instance = self.__class__(**val).__str__()
-                # Append list with string representation of class
-                items.append(instance)
+            if cls.__name__ in key:
+                items.append(str(val))
         print(items)
 
     @staticmethod
