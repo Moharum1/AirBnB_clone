@@ -123,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
                             if itemCount < 4:
                                 print("** value missing **")
                             else:
-                                model = model(**AvilableObj[instanceName])
+                                model = AvilableObj[instanceName]
                                 modelDict = model.__dict__.copy()
 
                                 if content[2] in modelDict:
